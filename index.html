@@ -1,14 +1,37 @@
 <!DOCTYPE html> 
     <head>
         <html lang="ko"> 
+        <title>momory-of-song</title>
     </head> 
-    <body> 
-    <custom-ele title="WC"></custom-ele>
-    <song-title title="드림하이"></song-title>
-     <div> 
-        <button id="delete-wc">제거</button>
-     </div>
+    <body>
+        한글 꺠짐
+    <list-of-song id='list-of-song' list="tes"></list-of-song>
+    <div id="list" class="list-of-song"/>
      </body>
       <script src="./components/ListOfSong.js"> </script> 
       <script src="./components/SongTitle.js"></script>
+      <script src="./data/list.js"></script>
+      <script src="./data/color.js"></script>
 </html>
+
+<script>
+    const listOfSong = document.getElementById('list-of-song')
+    listOfSong.setAttribute('list', ["hellp", "??"])
+    console.log(document.getElementById('list-of-song').attributes)
+
+    const list = document.getElementById('list')
+
+    songList.map((songData, index) => {
+        const songTitle = document.createElement('song-title')
+        songTitle.setAttribute('title', songData.title)
+        songTitle.setAttribute('color', colorList[index % colorList.length])
+        songTitle.setAttribute('key', index)
+        list.appendChild(songTitle)
+    })
+</script>
+
+<style>
+    .list-of-song{
+        display: flex;
+    }
+</style>

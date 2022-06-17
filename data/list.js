@@ -1,4 +1,4 @@
-[
+const songList = [
     {
         title: '드림하이',
         description: '꿈의 시작'

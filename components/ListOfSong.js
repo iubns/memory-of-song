@@ -15,11 +15,11 @@ class ListOfSong extends HTMLElement {
     
     //attributeChangedCallback 에서 관찰하는 항목을 리턴한다. 
     static get observedAttributes() {
-        return ['title'];
+        return ['list'];
     } 
 
     get title() {
-        return this.getAttribute('title');
+        return this.getAttribute('list');
     }
     
     // custom element 가 제거될때 호출된다. 
@@ -29,9 +29,9 @@ class ListOfSong extends HTMLElement {
     
     // custom method
     render() {
-         this.innerHTML =`<slot> <h1>${this.title}</h1> </slot> `
+         this.innerHTML =`<slot> <h1>${typeof this.title}</h1> </slot> `
 
     }
 } 
 
-window.customElements.define('custom-ele', ListOfSong); 
+window.customElements.define('list-of-song', ListOfSong); 

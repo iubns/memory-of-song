@@ -30,9 +30,13 @@ class SongTitle extends HTMLElement {
                     width: 100px;
                     white-space : nowrap; 
                     overflow : hidden;
+                    font-size: 14px;
+                }
+                div:hover {
+                    width: 150px;
                 }
             </style>
-            <div class="song-title-${this.key}">${this.title}</div>
+            <div class="song-title-${this.key}" song-title>${this.title}</div>
         `
     }
 }

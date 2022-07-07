@@ -4,6 +4,7 @@ class SongTitle extends HTMLElement {
     }
 
     connectedCallback(){
+        //this.attachShadow({mode: 'open'})
         this.render();
     }
 
@@ -28,11 +29,11 @@ class SongTitle extends HTMLElement {
                     padding: 2px;
                     text-overflow: ellipsis;
                     width: 100px;
-                    white-space : nowrap; 
+                    white-space : nowrap;
                     overflow : hidden;
                     font-size: 14px;
                 }
-                div:hover {
+                .song-title-${this.key}:hover {
                     width: 150px;
                 }
             </style>
@@ -41,4 +42,4 @@ class SongTitle extends HTMLElement {
     }
 }
 
-customElements.define('song-title', SongTitle)
+customElements.define('song-title', SongTitle);

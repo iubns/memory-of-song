@@ -2,9 +2,8 @@ class Controller extends HTMLElement {
     player;
     currentIndex = 0;
 
-    constructor (player) {
+    constructor () {
         super();
-        this.player = player;
     }
 
     connectedCallback(){
@@ -12,38 +11,56 @@ class Controller extends HTMLElement {
         setTimeout(() => {
             document.getElementById('previous-button')
                 .addEventListener('click', this.previousMusic.bind(this))
+            document.getElementById('start-music')
+                .addEventListener('click', this.startMusic.bind(this))
+            document.getElementById('stop-music')
+                .addEventListener('click', this.stopMusic.bind(this))
             document.getElementById('next-button')
                 .addEventListener('click', this.nextMusic.bind(this))
         }, 2000);
     }
 
-    get songLength () {
-        return this.getAttribute('songLength');
+    get isPlaying(){
+        if(this.player && this.player.getPlayerState){
+            return this.player.getPlayerState() === 1;
+        }
+        return 0;
     }
 
     nextMusic(){
-        this.currentIndex++;
-        if(this.currentIndex >= this.songLength){
-            this.currentIndex = this.songLength - 1;
-        }
-        this.player.playVideoAt(this.currentIndex)
+        this.player.nextVideo()
+        this.connectedCallback()
     }
 
     previousMusic(){
-        this.currentIndex--;
-        if(this.currentIndex < 0){
-            this.currentIndex = 0;
-        }
-        this.player.playVideoAt(this.currentIndex)
+        this.player.previousVideo()
+        this.connectedCallback()
+    }
+
+    startMusic(){
+        this.player.playVideo();
+        this.connectedCallback()
+    }
+
+    stopMusic(){
+        this.player.stopVideo();
+        this.connectedCallback()
     }
 
     render(){
-        this.innerHTML = this.player ? '<div>재생중 입니다.! <div id="previous-button">이전</div>  <div id="next-button">다음</div>  </div>' : '<div>loading...</div>';
+        this.innerHTML = !this.player ? 
+        `<div>loading...</div>` :
+        `<div>${this.isPlaying ? '재생중' : '정지중' } 입니다.! 
+            <div id="previous-button">이전</div>  
+            <div id="stop-music"> 일시정지 </div> 
+            <div id="start-music"> 시작 </div>
+            <div id="next-button">다음</div>  
+        </div>` ;
     }
 
     setPlayer(player){
         this.player = player
-        this.render()
+        this.connectedCallback()
     }
 }
 

@@ -55,7 +55,7 @@ class Controller extends HTMLElement {
             <div id="stop-music"> 일시정지 </div> 
             <div id="start-music"> 시작 </div>
             <div id="next-button">다음</div>  
-        </div>` ;
+        </div>`;
     }
 
     setPlayer(player){

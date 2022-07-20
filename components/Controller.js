@@ -8,6 +8,68 @@ class Controller extends HTMLElement {
 
     connectedCallback(){
         this.render()
+    }
+
+    get isPlaying(){
+        const PLAYING_STATE = 1
+        if(this.player && this.player.getPlayerState){
+            return this.player.getPlayerState() === PLAYING_STATE;
+        }
+        return false;
+    }
+
+    get playerType () {
+        const defaultType = 'CD'
+        if(!songList){
+            return defaultType
+        }
+
+        if(!this.player){
+            return defaultType
+        }
+
+        if(!songList[this.player.playerInfo.playlistIndex]){
+            return defaultType
+        }
+
+        return songList[this.player.playerInfo.playlistIndex].playerType
+    }
+
+    nextMusic(){
+        this.player.nextVideo()
+        this.render()
+    }
+
+    previousMusic(){
+        console.log('??')
+        this.player.previousVideo()
+        this.render()
+    }
+
+    startMusic(){
+        this.player.playVideo();
+        this.render()
+    }
+
+    stopMusic(){
+        this.player.stopVideo();
+        this.render()
+    }
+
+    render(){
+        this.innerHTML = !this.player ? 
+        `<div>loading...</div>` :
+        `<div>${this.isPlaying ? '재생중' : '정지중' } 입니다.! 
+        ${this.playerType}
+            <div id="previous-button">이전</div>  
+            <div id="stop-music"> 일시정지 </div> 
+            <div id="start-music"> 시작 </div>
+            <div id="next-button">다음</div>  
+        </div>`;
+        this.setEventListener();
+    }
+
+    setEventListener(){
         setTimeout(() => {
             document.getElementById('previous-button')
                 .addEventListener('click', this.previousMusic.bind(this))
@@ -20,47 +82,9 @@ class Controller extends HTMLElement {
         }, 2000);
     }
 
-    get isPlaying(){
-        if(this.player && this.player.getPlayerState){
-            return this.player.getPlayerState() === 1;
-        }
-        return 0;
-    }
-
-    nextMusic(){
-        this.player.nextVideo()
-        this.connectedCallback()
-    }
-
-    previousMusic(){
-        this.player.previousVideo()
-        this.connectedCallback()
-    }
-
-    startMusic(){
-        this.player.playVideo();
-        this.connectedCallback()
-    }
-
-    stopMusic(){
-        this.player.stopVideo();
-        this.connectedCallback()
-    }
-
-    render(){
-        this.innerHTML = !this.player ? 
-        `<div>loading...</div>` :
-        `<div>${this.isPlaying ? '재생중' : '정지중' } 입니다.! 
-            <div id="previous-button">이전</div>  
-            <div id="stop-music"> 일시정지 </div> 
-            <div id="start-music"> 시작 </div>
-            <div id="next-button">다음</div>  
-        </div>`;
-    }
-
     setPlayer(player){
         this.player = player
-        this.connectedCallback()
+        this.render()
     }
 }
 

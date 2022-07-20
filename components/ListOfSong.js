@@ -29,7 +29,7 @@ class ListOfSong extends HTMLElement {
     
     // custom method
     render() {
-         this.innerHTML =`<slot> <h1>${typeof this.title}</h1> </slot> `
+         this.innerHTML =`<slot> <h1>${this.title}</h1> </slot> `
 
     }
 } 

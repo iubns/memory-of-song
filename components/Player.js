@@ -19,7 +19,6 @@ function onYouTubeIframeAPIReady() {
 
     const selectedEelement =  document.querySelector('music-controller')
     selectedEelement.setPlayer(player)
-    selectedEelement.setAttribute('playerType', )
 }
 
 // 4. The API will call this function when the video player is ready.

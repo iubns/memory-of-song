@@ -7,7 +7,7 @@ class Controller extends HTMLElement {
     }
 
     connectedCallback(){
-        this.render()
+        this.render();
     }
 
     get isPlaying(){
@@ -18,21 +18,28 @@ class Controller extends HTMLElement {
         return false;
     }
 
-    get playerType () {
-        const defaultType = 'CD'
+    get currentSong() {
         if(!songList){
-            return defaultType
+            return {}
         }
 
         if(!this.player){
-            return defaultType
+            return {}
         }
 
         if(!songList[this.player.playerInfo.playlistIndex]){
-            return defaultType
+            return {}
         }
 
-        return songList[this.player.playerInfo.playlistIndex].playerType
+        return songList[this.player.playerInfo.playlistIndex];
+    }
+
+    get playerType () {
+        const defaultType = 'CD'
+        if(this.currentSong.playerType){
+            return this.currentSong.playerType
+        }
+        return defaultType;
     }
 
     nextMusic(){
@@ -41,7 +48,6 @@ class Controller extends HTMLElement {
     }
 
     previousMusic(){
-        console.log('??')
         this.player.previousVideo()
         this.render()
     }
@@ -56,12 +62,39 @@ class Controller extends HTMLElement {
         this.render()
     }
 
+    get playController() {
+        if(this.playerType === playerType.CD){
+            return `<controller-cd 
+                title="${this.currentSong.title}" 
+                description="${this.currentSong.description}"
+            ></controller-cd>`
+        }else if(this.playerType === playerType.MP3){
+            return `<controller-mp3 
+                title="${this.currentSong.title}" 
+                description="${this.currentSong.description}"
+            ></controller-mp3>`
+        }else if(this.playerType === playerType.Phone){
+            return `<controller-phone 
+                title="${this.currentSong.title}" 
+                description="${this.currentSong.description}"
+            ></controller-phone>`
+        }else if(this.playerType === playerType.Car){
+            return `<controller-car 
+                title="${this.currentSong.title}" 
+                description="${this.currentSong.description}"
+            ></controller-car>`
+        }
+        return this.playerType
+    }
+
     render(){
         this.innerHTML = !this.player ? 
         `<div>loading...</div>` :
-        `<div>${this.isPlaying ? '재생중' : '정지중' } 입니다.! 
-        ${this.playerType}
-            <div id="previous-button">이전</div>  
+        `<div>${this.isPlaying ? '재생중' : '정지중' } 입니다.! `
+        +
+        this.playController
+        + 
+        `<div id="previous-button">이전</div>  
             <div id="stop-music"> 일시정지 </div> 
             <div id="start-music"> 시작 </div>
             <div id="next-button">다음</div>  

@@ -63,7 +63,12 @@ class Controller extends HTMLElement {
     }
 
     get playController() {
-        if(this.playerType === playerType.CD){
+        if(this.playerType === playerType.Cassette){
+            return `<controller-cassette
+                title="${this.currentSong.title}" 
+                description="${this.currentSong.description}"
+            ></controller-cd>`
+        }else if(this.playerType === playerType.CD){
             return `<controller-cd 
                 title="${this.currentSong.title}" 
                 description="${this.currentSong.description}"
@@ -92,13 +97,14 @@ class Controller extends HTMLElement {
         `<div>loading...</div>` :
         `<div>${this.isPlaying ? '재생중' : '정지중' } 입니다.! `
         +
-        this.playController
-        + 
         `<div id="previous-button">이전</div>  
             <div id="stop-music"> 일시정지 </div> 
             <div id="start-music"> 시작 </div>
             <div id="next-button">다음</div>  
-        </div>`;
+        </div>`
+        
+        +
+        this.playController;
         this.setEventListener();
     }
 

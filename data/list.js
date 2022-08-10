@@ -3,19 +3,19 @@ const songList = [
         title: '머리부터 발끝까지',
         description: '하얀마을',
         url: 'j0htowD7viI',
-        playerType: playerType.CD,
+        playerType: playerType.Cassette,
     },
     {
         title: 'fly away',
         description: '쿵야쿵야',
         url: 'GZjpZWXznXw',
-        playerType: playerType.MP3,
+        playerType: playerType.Cassette,
     },
     {
         title: '드림하이',
         description: '꿈의 시작',
         url: '5qMUzPH7Qik',
-        playerType: playerType.Phone,
+        playerType: playerType.Cassette,
     },
     {
         title: '거짓말',
